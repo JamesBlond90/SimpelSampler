@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <!--Läser in alla script och ramverk som kommer behövas.-->
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
+    <link rel="stylesheet" type="text/css" href="circles.css">
+
+    <!--Detta gjordes först med if-satser för varje tangent, men hittade denna kod på stackoverflow.
+    Man kopplar altså vårt onKeyDown event till detta objekt och kan på så sätt bespara oss massa kod och tid, smart-->
+    <script type="text/paperscript" canvas="myCanvas">
+        var keys = {
+            q: {
+                sound: new Howl({
+                    urls: ['sounds1/Bass C Freya.wav']
+                }),
+                color: '#1abc9c'
+            },
+            w: {
+                sound: new Howl({
+                    urls: ['sounds1/Bass C Nieves.wav']
+                }),
+                color: '#2ecc71'
+            },
+            e: {
+                sound: new Howl({
+                    urls: ['sounds1/Bass C Saraya.wav']
+                }),
+                color: '#3498db'
+            },
+            r: {
+                sound: new Howl({
+                    urls: ['sounds1/Breathe Drageonna 1.wav']
+                }),
+                color: '#9b59b6'
+            },
+            t: {
+                sound: new Howl({
+                    urls: ['sounds1/Chord C#m Charina.wav']
+                }),
+                color: '#34495e'
+            },
+            y: {
+                sound: new Howl({
+                    urls: ['sounds1/Chord C Strings ChildishCountenance.wav']
+                }),
+                color: '#16a085'
+            },
+            u: {
+                sound: new Howl({
+                    urls: ['sounds1/Chord Cm Nieves.wav']
+                }),
+                color: '#27ae60'
+            },
+            i: {
+                sound: new Howl({
+                    urls: ['sounds1/Chord Cm WahGuitar SouSoul.wav']
+                }),
+                color: '#2980b9'
+            },
+            o: {
+                sound: new Howl({
+                    urls: ['sounds1/Chord Cm York 4.wav']
+                }),
+                color: '#8e44ad'
+            },
+            p: {
+                sound: new Howl({
+                    urls: ['sounds1/Clap FriedGreenTomatoes.wav']
+                }),
+                color: '#2c3e50'
+            },
+            a: {
+                sound: new Howl({
+                    urls: ['sounds1/Kick Alecia.wav']
+                }),
+                color: '#f1c40f'
+            },
+            s: {
+                sound: new Howl({
+                    urls: ['sounds1/ClosedHH CmonNow.wav']
+                }),
+                color: '#e67e22'
+            },
+            d: {
+                sound: new Howl({
+                    urls: ['sounds1/Snare ClassicRegal 1.wav']
+                }),
+                color: '#e74c3c'
+            },
+            f: {
+                sound: new Howl({
+                    urls: ['sounds1/Kick ChildishCountenance 1.wav']
+                }),
+                color: '#95a5a6'
+            },
+            g: {
+                sound: new Howl({
+                    urls: ['sounds1/Kick Saraya 2.wav']
+                }),
+                color: '#f39c12'
+            },
+            h: {
+                sound: new Howl({
+                    urls: ['sounds1/OpenHH DarkDSE.wav']
+                }),
+                color: '#d35400'
+            },
+            j: {
+                sound: new Howl({
+                    urls: ['sounds1/OpenHH LouisianaDawn.wav']
+                }),
+                color: '#1abc9c'
+            },
+            k: {
+                sound: new Howl({
+                    urls: ['sounds1/Snare ClassicRegal 1.wav']
+                }),
+                color: '#2ecc71'
+            },
+            l: {
+                sound: new Howl({
+                    urls: ['sounds1/Snare SingletarySt 1.wav']
+                }),
+                color: '#3498db'
+            },
+            z: {
+                sound: new Howl({
+                    urls: ['sounds1/Tom Kingfish 1.wav']
+                }),
+                color: '#9b59b6'
+            },
+            x: {
+                sound: new Howl({
+                    urls: ['sounds/timer.mp3']
+                }),
+                color: '#34495e'
+            },
+            c: {
+                sound: new Howl({
+                    urls: ['sounds1/TomTom FoggySwamp.wav']
+                }),
+                color: '#16a085'
+            },
+            v: {
+                sound: new Howl({
+                    urls: ['sounds1/TomTom FoggySwamp.wav']
+                }),
+                color: '#27ae60'
+            },
+            b: {
+                sound: new Howl({
+                    urls: ['sounds1/Vocal C Nieves 2.wav']
+                }),
+                color: '#2980b9'
+            },
+            n: {
+                sound: new Howl({
+                    urls: ['sounds1/Breathe Drageonna 1.wav']
+                }),
+                color: '#8e44ad'
+            },
+            m: {
+                sound: new Howl({
+                    urls: ['sounds1/Breathe Drageonna 1.wav']
+                }),
+                color: '#2c3e50'
+            }
+        }
+
+        var circles = [];
+        //Här skapas och triggas våra cirklar.
+        //Vi behandlar storlek, färg och kopplar varje tangent till en egen färg.
+        //I skript två är alla färger statiskt vita.
+        function onKeyDown(event) {
+            if(keys[event.key]){
+                var maxPoint = new Point(view.size.width, view.size.height);
+                //Nedan ser vi till att varje cirkel får en random kordinat
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
+                var newCircle = new Path.Circle(point, 100)
+                newCircle.fillColor = keys[event.key].color;
+                keys[event.key].sound.play();
+                circles.push(newCircle);
+            }
+        }
+
+        function onFrame(event){
+            for(var i = 0; i < circles.length; i++){
+                circles[i].fillColor.hue += 1;
+                circles[i].scale(.9);
+            }
+        }
+    </script>
+</head>
+<body>
+<!--Våran meny-->
+<div class="topnav">
+    <a class="active" href="home.html">Play</a>
+    <a href="otherSounds.html">Other Sounds</a>
+    <a href="about.html">About</a>
+</div>
+<div class="toptext">
+    <div class="rubrik">Press any key on the keyboard</div>
+</div>
+
+<canvas id="myCanvas" resize></canvas>
+</body>
+</html>

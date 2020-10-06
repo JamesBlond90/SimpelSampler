@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>otherSounds</title>
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
+    <link rel="stylesheet" type="text/css" href="circles.css">
+
+    <script type="text/paperscript" canvas="myCanvas">
+        var keys2 = {
+            q: {
+                sound: new Howl({
+                    urls: ['otherSounds/Bass C Saturn.wav']
+                }),
+                color: '#ffffff'
+            },
+            w: {
+                sound: new Howl({
+                    urls: ['otherSounds/Bell C Focus.wav']
+                }),
+                color: '#ffffff'
+            },
+            e: {
+                sound: new Howl({
+                    urls: ['otherSounds/Chord Cm Dubon 2.wav']
+                }),
+                color: '#ffffff'
+            },
+            r: {
+                sound: new Howl({
+                    urls: ['otherSounds/Chord Cm Hoptus 1.wav']
+                }),
+                color: '#ffffff'
+            },
+            t: {
+                sound: new Howl({
+                    urls: ['otherSounds/ClosedHH Cycler.wav']
+                }),
+                color: '#ffffff'
+            },
+            y: {
+                sound: new Howl({
+                    urls: ['otherSounds/Impact Focus.wav']
+                }),
+                color: '#ffffff'
+            },
+            u: {
+                sound: new Howl({
+                    urls: ['otherSounds/Impact Horizon.wav']
+                }),
+                color: '#ffffff'
+            },
+            i: {
+                sound: new Howl({
+                    urls: ['otherSounds/OpenHH Circuits.wav']
+                }),
+                color: '#ffffff'
+            },
+            o: {
+                sound: new Howl({
+                    urls: ['otherSounds/OpenHH Organika.wav']
+                }),
+                color: '#ffffff'
+            },
+            p: {
+                sound: new Howl({
+                    urls: ['otherSounds/Rimshot Cycler.wav']
+                }),
+                color: '#ffffff'
+            },
+            a: {
+                sound: new Howl({
+                    urls: ['otherSounds/Kick Circuits 2.wav']
+                }),
+                color: '#ffffff'
+            },
+            s: {
+                sound: new Howl({
+                    urls: ['otherSounds/Kick Klatter 1.wav']
+                }),
+                color: '#ffffff'
+            },
+            d: {
+                sound: new Howl({
+                    urls: ['otherSounds/Snare Cycler 1.wav']
+                }),
+                color: '#ffffff'
+            },
+            f: {
+                sound: new Howl({
+                    urls: ['otherSounds/Snare Tram 1.wav']
+                }),
+                color: '#ffffff'
+            },
+            g: {
+                sound: new Howl({
+                    urls: ['otherSounds/OpenHH Atome.wav']
+                }),
+                color: '#ffffff'
+            },
+            h: {
+                sound: new Howl({
+                    urls: ['otherSounds/Sub Skool.wav']
+                }),
+                color: '#ffffff'
+            },
+            j: {
+                sound: new Howl({
+                    urls: ['otherSounds/SFX Composite 8.wav']
+                }),
+                color: '#ffffff'
+            },
+            k: {
+                sound: new Howl({
+                    urls: ['otherSounds/Sweep Horizon 3.wav']
+                }),
+                color: '#ffffff'
+            },
+            l: {
+                sound: new Howl({
+                    urls: ['otherSounds/Synth C Monolit.wav']
+                }),
+                color: '#ffffff'
+            },
+            z: {
+                sound: new Howl({
+                    urls: ['otherSounds/Vocal Transfer 2.wav']
+                }),
+                color: '#ffffff'
+            },
+            x: {
+                sound: new Howl({
+                    urls: ['otherSounds/MidTom Model.wav']
+                }),
+                color: '#ffffff'
+            },
+            c: {
+                sound: new Howl({
+                    urls: ['otherSounds/Vocal Vortex.wav']
+                }),
+                color: '#ffffff'
+            },
+            v: {
+                sound: new Howl({
+                    urls: ['otherSounds/LowTom Droid.wav']
+                }),
+                color: '#ffffff'
+            },
+            b: {
+                sound: new Howl({
+                    urls: ['otherSounds/LowTom Wire.wav']
+                }),
+                color: '#ffffff'
+            },
+            n: {
+                sound: new Howl({
+                    urls: ['otherSounds/SFX Hitech 9.wav']
+                }),
+                color: '#ffffff'
+            },
+            m: {
+                sound: new Howl({
+                    urls: ['otherSounds/SFX Arena.wav']
+                }),
+                color: '#ffffff'
+            }
+        }
+
+        var circles = [];
+
+        function onKeyDown(event) {
+            if(keys2[event.key]){
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
+                var newCircle = new Path.Circle(point, 500)
+                newCircle.fillColor = keys2[event.key].color;
+                keys2[event.key].sound.play();
+                circles.push(newCircle);
+            }
+        }
+
+        function onFrame(event){
+            for(var i = 0; i < circles.length; i++){
+                circles[i].fillColor.hue += 1;
+                circles[i].scale(0.99);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="topnav">
+    <a class="active" href="home.html">Play</a>
+    <a href="otherSounds.html">Other Sounds</a>
+    <a href="about.html">About</a>
+</div>
+<div class="toptext">
+    <div class="rubrik">Yeep..the same here</div>
+</div>
+
+<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
